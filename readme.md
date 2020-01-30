@@ -46,3 +46,14 @@ form parameter|required|description
 `claims_to_include`|*required*|A list of claims that Kong will expose in request headers. Lua pattern expressions are valid, e.g., `kong-.*` will include `kong-id`, `kong-email`, etc. Defaults to `.*` (include all claims). 
 `continue_on_error`|*required*|Whether to send the request to the upstream service if a failure occurs (no JWT token present, error decoding, etc). Defaults to `true`.
 
+## Nomad
+
+To install this plugin be sure to have `luarocks` installed in the Kong machine, then run `luarocks make` inside this folder, and then edit `/etc/kong/kong.conf` adding this plugin into loaded plugins:
+
+```
+...
+plugins = bundled,jwt-claims-headers
+...
+```
+
+Then, restart Kong (`kong restart`) and the plugin should appear in Custom Plugins section. It will add all JWT payload into headers (by default).
